@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+    <extension point="org.eclipse.ui.commands">
+        <command name="Open file"
+                 id="com.kovalev007.file-finder.commands.sampleCommand1">
+        </command>
+        <command name="Create file"
+                 id="com.kovalev007.file-finder.commands.sampleCommand2">
+        </command>
+    </extension>
+    <extension point="org.eclipse.ui.handlers">
+        <handler commandId="com.kovalev007.file-finder.commands.sampleCommand1"
+                 class="com.kovalev007.filefinder.handlers.OpenFile">
+        </handler>
+        <handler commandId="com.kovalev007.file-finder.commands.sampleCommand2"
+                 class="com.kovalev007.filefinder.handlers.CreateFile">
+        </handler>
+    </extension>
+    <extension point="org.eclipse.ui.bindings">
+        <key commandId="com.kovalev007.file-finder.commands.sampleCommand1"
+             contextId="org.eclipse.ui.contexts.window"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+        </key>
+        <key commandId="com.kovalev007.file-finder.commands.sampleCommand2"
+             contextId="org.eclipse.ui.contexts.window"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+        </key>
+    </extension>
+    <extension point="org.eclipse.ui.menus">
+        <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+            <menu label="File finder"
+                  id="com.kovalev007.file-finder.menus.sampleMenu">
+                <command label="Open file"
+                         commandId="com.kovalev007.file-finder.commands.sampleCommand1"
+                         id="com.kovalev007.file-finder.menus.sampleCommand1">
+                </command>
+                <command label="Create file"
+                         commandId="com.kovalev007.file-finder.commands.sampleCommand2"
+                         id="com.kovalev007.file-finder.menus.sampleCommand2">
+                </command>
+            </menu>
+        </menuContribution>
+   </extension>
+
+</plugin>

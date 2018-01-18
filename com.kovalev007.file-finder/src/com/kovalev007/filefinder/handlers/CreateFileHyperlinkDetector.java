@@ -4,6 +4,7 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.hyperlink.AbstractHyperlinkDetector;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
@@ -28,7 +29,10 @@ public class CreateFileHyperlinkDetector extends AbstractHyperlinkDetector imple
 
         int index = lineRegionText.indexOf(FileFinderHelper.ANNOTATION);
         if (index != -1) {
-            return new IHyperlink[] { new CreateFileHyperlink(lineRegion, lineRegionText) };
+            IRegion targetRegion = new Region(lineRegion.getOffset() + index + 1, FileFinderHelper.ANNOTATION.length() - 1);
+            if ((targetRegion.getOffset() <= offset) && ((targetRegion.getOffset() + targetRegion.getLength()) > offset)) {
+                return new IHyperlink[] { new CreateFileHyperlink(targetRegion, lineRegionText) };
+            }
         }
 
         return null;

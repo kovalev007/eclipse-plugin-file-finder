@@ -2,7 +2,6 @@ package com.kovalev007.filefinder.handlers;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.IRegion;
-import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.swt.widgets.Display;
 
@@ -22,9 +21,7 @@ public class CreateFileHyperlink implements IHyperlink {
 
     @Override
     public IRegion getHyperlinkRegion() {
-        int index = regionText.indexOf(FileFinderHelper.ANNOTATION);
-        IRegion targetRegion = new Region(region.getOffset() + index, FileFinderHelper.ANNOTATION.length());
-        return targetRegion;
+        return region;
     }
 
     @Override

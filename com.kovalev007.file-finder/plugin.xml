@@ -42,6 +42,20 @@
                 </command>
             </menu>
         </menuContribution>
-   </extension>
+    </extension>
+    <extension point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
+        <hyperlinkDetector id="com.kovalev007.file-finder.commands.sampleCommand3"
+                           targetId="org.eclipse.jdt.ui.javaCode"
+                           class="com.kovalev007.filefinder.handlers.OpenFileHyperlinkDetector"
+                           name="File finder - Open file">
+        </hyperlinkDetector>
+    </extension>
+    <extension point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
+        <hyperlinkDetector id="com.kovalev007.file-finder.commands.sampleCommand4"
+                           targetId="org.eclipse.jdt.ui.javaCode"
+                           class="com.kovalev007.filefinder.handlers.CreateFileHyperlinkDetector"
+                           name="File finder - Create file">
+        </hyperlinkDetector>
+    </extension>
 
 </plugin>

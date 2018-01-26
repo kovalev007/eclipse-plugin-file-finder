@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -11,7 +12,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
@@ -27,10 +27,16 @@ public class FileFinderHelperCreateFile {
             throw new FileFinderException("File [" + "/" + projectName + FileFinderHelper.SEARCH_FOLDER + fileName + "] already exists");
         }
 
+        try {
+            createFolders((IFolder) file.getParent());
+        } catch (Exception e) {
+            throw new FileFinderException("Create folder error: " + e.getMessage());
+        }
+
         InputStream source = new ByteArrayInputStream("".getBytes());
         try {
             file.create(source, false, null);
-        } catch (CoreException e) {
+        } catch (Exception e) {
             throw new FileFinderException("Create file error: " + e.getMessage());
         }
 
@@ -39,8 +45,17 @@ public class FileFinderHelperCreateFile {
         IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
         try {
             IDE.openEditor(workbenchPage, file, true);
-        } catch (PartInitException e) {
+        } catch (Exception e) {
             throw new FileFinderException("Error when open file: " + e.getMessage());
+        }
+    }
+
+    private static void createFolders(IFolder folder) throws CoreException {
+        if (!folder.exists()) {
+            if (folder.getParent() instanceof IFolder) {
+                createFolders((IFolder) folder.getParent());
+            }
+            folder.create(false, false, null);
         }
     }
 

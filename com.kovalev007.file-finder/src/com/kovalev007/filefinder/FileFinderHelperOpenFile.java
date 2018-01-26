@@ -7,7 +7,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
@@ -28,7 +27,7 @@ public class FileFinderHelperOpenFile {
         IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
         try {
             IDE.openEditor(workbenchPage, file, true);
-        } catch (PartInitException e) {
+        } catch (Exception e) {
             throw new FileFinderException("Error when open file: " + e.getMessage());
         }
     }

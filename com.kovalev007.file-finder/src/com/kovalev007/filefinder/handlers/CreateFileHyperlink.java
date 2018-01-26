@@ -37,9 +37,13 @@ public class CreateFileHyperlink implements IHyperlink {
     @Override
     public void open() {
         try {
-            FileFinderHelperCreateFile.createFile(FileFinderHelper.getCurrentProjectName(), FileFinderHelper.getFileName(regionText));
-        } catch (FileFinderException e) {
-            MessageDialog.openError(Display.getDefault().getActiveShell(), FileFinderHelper.WINDOW_TITLE, e.getMessage());
+            try {
+                FileFinderHelperCreateFile.createFile(FileFinderHelper.getCurrentProjectName(), FileFinderHelper.getFileName(regionText));
+            } catch (FileFinderException e) {
+                MessageDialog.openError(Display.getDefault().getActiveShell(), FileFinderHelper.WINDOW_TITLE, e.getMessage());
+            }
+        } catch (Exception e) {
+            MessageDialog.openError(Display.getDefault().getActiveShell(), FileFinderHelper.WINDOW_TITLE, "Unexpected error: " + e.getMessage() + " " + FileFinderHelper.stackTraceToString(e));
         }
     }
 
